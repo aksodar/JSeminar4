@@ -64,18 +64,22 @@ public class Homework {
         int temp;
         boolean minus = false;
         Deque<Integer> result = new ArrayDeque<>();
-        if (number < 0) {
-            number = Math.abs(number);
-            minus = true;
-        }
-        while (number > 0) {
-            temp = number % 10;
-            result.addLast(temp);
-            number = (number - temp) / 10;
-        }
-        if (minus && !result.isEmpty()) {
-            int last = result.pollLast();
-            result.addLast(-last);
+        if (number != 0) {
+            if (number < 0) {
+                number = Math.abs(number);
+                minus = true;
+            }
+            while (number > 0) {
+                temp = number % 10;
+                result.addLast(temp);
+                number = (number - temp) / 10;
+            }
+            if (minus && !result.isEmpty()) {
+                int last = result.pollLast();
+                result.addLast(-last);
+            }
+        } else {
+            result.addLast(0);
         }
         return result;
     }
