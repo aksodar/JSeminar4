@@ -1,10 +1,8 @@
 package ru.gb.jseminar;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 public class Homework {
@@ -55,12 +53,21 @@ public class Homework {
     }
 
     public Deque<Integer> resultDeque(int number) {
-        int temp = 0;
+        int temp;
+        boolean minus = false;
         Deque<Integer> result = new ArrayDeque<>();
+        if (number < 0) {
+            number = Math.abs(number);
+            minus = true;
+        }
         while (number > 0) {
             temp = number % 10;
             result.addLast(temp);
             number = (number - temp) / 10;
+        }
+        if (minus && !result.isEmpty()) {
+            int last = result.pollLast();
+            result.addLast(-last);
         }
         logger.info(String.valueOf(result));
         return result;
