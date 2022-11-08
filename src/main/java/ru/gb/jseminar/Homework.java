@@ -1,13 +1,15 @@
 package ru.gb.jseminar;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 public class Homework {
     private static final Homework homework = new Homework();
-    private final Logger logger = Logger.getLogger(Homework.class.getName());
+    private static final Logger logger = Logger.getLogger(Homework.class.getName());
 
     //Даны два Deque представляющие два целых числа. Цифры хранятся в обратном порядке,
     // и каждый из их узлов содержит одну цифру.
@@ -16,9 +18,15 @@ public class Homework {
 
         // multiple(new ArrayDeque<>(Arrays.asList(5,2)), new ArrayDeque<>(Arrays.asList(4)));
         // result [0,0,1]
+        Deque<Integer> multi = homework.multiple(new ArrayDeque<>(Arrays.asList(5,2)),
+                new ArrayDeque<>(List.of(4)));
+        logger.info(String.valueOf(multi));
+
         // sum(new ArrayDeque<>(Arrays.asList(5,-2)), new ArrayDeque<>(Arrays.asList(5)));
         // result [0,-2]
-
+        Deque<Integer> summary = homework.sum(new ArrayDeque<>(Arrays.asList(5,-2)),
+                new ArrayDeque<>(List.of(5)));
+        logger.info(String.valueOf(summary));
     }
 
     // Умножьте два числа и верните произведение в виде связанного списка.
@@ -69,7 +77,6 @@ public class Homework {
             int last = result.pollLast();
             result.addLast(-last);
         }
-        logger.info(String.valueOf(result));
         return result;
     }
 }
