@@ -4,41 +4,53 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
+import java.util.logging.Logger;
+
 public class Homework {
+    private static final Homework homework = new Homework();
+    private final Logger logger = Logger.getLogger(Homework.class.getName());
 
     //Даны два Deque представляющие два целых числа. Цифры хранятся в обратном порядке,
     // и каждый из их узлов содержит одну цифру.
+
     public static void main(String[] args) {
-        Homework hw = new Homework();
-        hw.multiple(new ArrayDeque<>(Arrays.asList(5,2)), new ArrayDeque<>(Arrays.asList(4)));
+
+        // multiple(new ArrayDeque<>(Arrays.asList(5,2)), new ArrayDeque<>(Arrays.asList(4)));
         // result [0,0,1]
-        hw.sum(new ArrayDeque<>(Arrays.asList(5,-2)), new ArrayDeque<>(Arrays.asList(5)));
+        // sum(new ArrayDeque<>(Arrays.asList(5,-2)), new ArrayDeque<>(Arrays.asList(5)));
         // result [0,-2]
+
     }
 
     // Умножьте два числа и верните произведение в виде связанного списка.
     public Deque<Integer> multiple(Deque<Integer> d1, Deque<Integer> d2) {
-
-        return new ArrayDeque<>();
+        return homework.resultDeque(getNumber(d1) * getNumber(d2));
     }
 
     // Сложите два числа и верните сумму в виде связанного списка. Одно или два числа должны быть отрицательными
     public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2) {
-
-        return new ArrayDeque<>();
+        return homework.resultDeque(getNumber(d1) + getNumber(d2));
     }
 
     public int getNumber(Deque<Integer> deque) {
         int number;
+        int count;
         if (deque.isEmpty()) {
             number = 0;
         } else {
+            count = (int) deque.stream()
+                    .filter((n) -> n < 0)
+                    .count();
+
             AtomicInteger i = new AtomicInteger(0);
             number = deque.stream()
                     .map((a) ->
-                            a * (int) Math.pow(10, i.getAndIncrement()))
+                            Math.abs(a) * (int) Math.pow(10, i.getAndIncrement()))
                     .reduce(0, Integer::sum);
+            number = (int) (number * Math.pow(-1, count));
         }
+        logger.info(String.valueOf(number));
         return number;
     }
 
@@ -50,6 +62,7 @@ public class Homework {
             result.addLast(temp);
             number = (number - temp) / 10;
         }
+        logger.info(String.valueOf(result));
         return result;
     }
 }
