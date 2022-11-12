@@ -23,10 +23,10 @@ class HomeworkTest {
 
 	@Test
 	void sumSuccessful() {
-		Deque<Integer> inputDeque1 = new ArrayDeque<>(Arrays.asList(2, -1));
-		Deque<Integer> inputDeque2 = new ArrayDeque<>(Arrays.asList(4, 2));
+		Deque<Integer> inputDeque1 = new ArrayDeque<>(Arrays.asList(0, 0, 0, 2));
+		Deque<Integer> inputDeque2 = new ArrayDeque<>(Arrays.asList(0, 1, 0, -1));
 
-		Deque<Integer> expectedDeque = new ArrayDeque<>(Arrays.asList(2, 1));
+		Deque<Integer> expectedDeque = new ArrayDeque<>(Arrays.asList(0, 9, 9));
 		
 		Deque<Integer> actualDeque = (new Homework()).sum(inputDeque1, inputDeque2);
 

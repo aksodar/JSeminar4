@@ -1,8 +1,3 @@
-// Задачу с умножением решил без перевода очередей в числа
-
-// Задачу со сложением отрицательных чисел решал путём конвертации исходных
-// очередей в числа, последующим сложением и разбиением полученного числа в очередь
-
 package ru.gb.jseminar;
 
 import java.util.ArrayDeque;
@@ -21,21 +16,20 @@ public class Homework {
 		Deque<Integer> d1_1 = new ArrayDeque<>(Arrays.asList(6, 8, 5, 7, 9));
 		Deque<Integer> d2_1 = new ArrayDeque<>(Arrays.asList(2, 8, 3));
 
-		Deque<Integer> d1_2 = new ArrayDeque<>(Arrays.asList(0, 0, 0, 2));
-		Deque<Integer> d2_2 = new ArrayDeque<>(Arrays.asList(0, 1, 0, -1));
+		Deque<Integer> d1_2 = new ArrayDeque<>(Arrays.asList(0, 0, -1));
+		Deque<Integer> d2_2 = new ArrayDeque<>(Arrays.asList(0, 1));
 
-		// Deque<Integer> d1 = new ArrayDeque<>();
 		Logger log = Logger.getLogger(Homework.class.getName());
 		Homework homework = new Homework();
 
-		log.info(String.valueOf(homework.multiple(d1_1, d2_1)));
-		log.info(String.valueOf(homework.sum(d1_2, d2_2)));
+		log.info("Результат умножения: " + String.valueOf(homework.multiple(d1_1, d2_1)));
+		log.info("Результат сложения: " + String.valueOf(homework.sum(d1_2, d2_2)));
 	}
 
 	// Умножьте два числа и верните произведение в виде связанного списка.
 	public Deque<Integer> multiple (Deque<Integer> d1, Deque<Integer> d2) {
 		int sum = 0;
-		int mul = 0;
+		int mul;
 		boolean flagFirstCycle = true;
 		boolean flagFirstStep = true;
 		Deque<Integer> tmp = new ArrayDeque<>();
@@ -91,49 +85,271 @@ public class Homework {
 		if (d1.isEmpty() && d2.isEmpty())	return result;
 		if (d1.isEmpty())					return d2;
 		if (d2.isEmpty())					return d1;
-		return IntToDeque(DequeToInt(d1) + DequeToInt(d2));
-	}
 
-	public Integer DequeToInt (Deque<Integer> d) {
-		int result;
-		
-		if (d.isEmpty())	return 0;
-
-		if (d.getLast() >=0) {
-			result = d.pollFirst();
-			int power = 1;
-			while (!d.isEmpty()) {
-				result += d.pollFirst() * Math.pow(10, power);
-				power ++;
+		if (d1.getLast() >= 0 && d2.getLast() < 0) {
+			int tmp = d2.pollLast();
+			d2.addLast(-tmp);
+			if (d1.size() == d2.size()) {
+				while (d1.getLast().equals(d2.getLast())) {
+					d1.removeLast();
+					d2.removeLast();
+					if (d1.isEmpty() || d2.isEmpty()) {
+						result.addLast(0);
+						return result;
+					}
+				}
+				if (d1.getLast() > d2.getLast()) {
+					int digit = 0;
+					while (!d1.isEmpty()) {
+						int dif = d1.pollFirst() - d2.pollFirst() - digit;
+						if (dif < 0) {
+							result.addLast(10 + dif );
+							digit = 1;
+						} else {
+							result.addLast(dif);
+							digit = 0;
+						}
+					}
+					while ((result.getLast() == 0)) {
+						result.removeLast();
+						if (result.isEmpty()) {
+							result.addLast(0);
+							return result;
+						}
+					}
+					return result;
+				} else {
+					int digit = 0;
+					while (!d1.isEmpty()) {
+						int dif = d2.pollFirst() - d1.pollFirst() - digit;
+						if (dif < 0) {
+							result.addLast(10 + dif );
+							digit = 1;
+						} else {
+							result.addLast(dif);
+							digit = 0;
+						}
+					}
+					while (result.getLast() == 0) {
+						result.removeLast();
+						if (result.isEmpty()) {
+							result.addLast(0);
+							return result;
+						}
+					}
+					int last = result.pollLast();
+					result.addLast(-last);
+					return result;
+				}
+			} else if (d1.size() > d2.size()) {
+				int digit = 0;
+				while (!d1.isEmpty()) {
+					int dif;
+					if (!d2.isEmpty()) {
+						dif = d1.pollFirst() - d2.pollFirst() - digit;
+					} else {
+						dif = d1.pollFirst() - digit;
+					}
+					if (dif < 0) {
+						result.addLast(10 + dif);
+						digit = 1;
+					} else {
+						result.addLast(dif);
+						digit = 0;
+					}
+				}
+				while (result.getLast() == 0) {
+					result.removeLast();
+					if (result.isEmpty()) {
+						result.addLast(0);
+						return result;
+					}
+				}
+				return result;
+			} else {
+				int digit = 0;
+				while (!d2.isEmpty()) {
+					int dif;
+					if (!d1.isEmpty()) {
+						dif = d2.pollFirst() - d1.pollFirst() - digit;
+					} else {
+						dif = d2.pollFirst() - digit;
+					}
+					if (dif < 0) {
+						result.addLast(10 + dif);
+						digit = 1;
+					} else {
+						result.addLast(dif);
+						digit = 0;
+					}
+				}
+				while (result.getLast() == 0) {
+					result.removeLast();
+					if (result.isEmpty()) {
+						result.addLast(0);
+						return result;
+					}
+				}
+				int last = result.pollLast();
+				result.addLast(-last);
+				return result;
 			}
+		} else if (d1.getLast() < 0 && d2.getLast() >= 0) {
+			int tmp = d1.pollLast();
+			d1.addLast(-tmp);
+			if (d1.size() == d2.size()) {
+				while ((d1.getLast().equals(d2.getLast()))) {
+					d1.removeLast();
+					d2.removeLast();
+					if (d1.isEmpty() || d2.isEmpty()) {
+						result.addLast(0);
+						return result;
+					}
+				}
+				if (d2.getLast() > d1.getLast()) {
+					int digit = 0;
+					while (!d1.isEmpty()) {
+						int dif = d2.pollFirst() - d1.pollFirst() - digit;
+						if (dif < 0) {
+							result.addLast(10 + dif );
+							digit = 1;
+						} else {
+							result.addLast(dif);
+							digit = 0;
+						}
+					}
+					while ((result.getLast() == 0)) {
+						result.removeLast();
+						if (result.isEmpty()) {
+							result.addLast(0);
+							return result;
+						}
+					}
+					return result;
+				} else {
+					int digit = 0;
+					while (!d1.isEmpty()) {
+						int dif = d1.pollFirst() - d2.pollFirst() - digit;
+						if (dif < 0) {
+							result.addLast(10 + dif );
+							digit = 1;
+						} else {
+							result.addLast(dif);
+							digit = 0;
+						}
+					}
+					while (result.getLast() == 0) {
+						result.removeLast();
+						if (result.isEmpty()) {
+							result.addLast(0);
+							return result;
+						}
+					}
+					int last = result.pollLast();
+					result.addLast(-last);
+					return result;
+				}
+			} else if (d1.size() > d2.size()) {
+				int digit = 0;
+				while (!d1.isEmpty()) {
+					int dif;
+					if (!d2.isEmpty()) {
+						dif = d1.pollFirst() - d2.pollFirst() - digit;
+					} else {
+						dif = d1.pollFirst() - digit;
+					}
+					if (dif < 0) {
+						result.addLast(10 + dif);
+						digit = 1;
+					} else {
+						result.addLast(dif);
+						digit = 0;
+					}
+				}
+				while (result.getLast() == 0) {
+					result.removeLast();
+					if (result.isEmpty()) {
+						result.addLast(0);
+						return result;
+					}
+				}
+				int last = result.pollLast();
+				result.addLast(-last);
+				return result;
+			} else {
+				int digit = 0;
+				while (!d2.isEmpty()) {
+					int dif;
+					if (!d1.isEmpty()) {
+						dif = d2.pollFirst() - d1.pollFirst() - digit;
+					} else {
+						dif = d2.pollFirst() - digit;
+					}
+					if (dif < 0) {
+						result.addLast(10 + dif);
+						digit = 1;
+					} else {
+						result.addLast(dif);
+						digit = 0;
+					}
+				}
+				while (result.getLast() == 0) {
+					result.removeLast();
+					if (result.isEmpty()) {
+						result.addLast(0);
+						return result;
+					}
+				}
+				return result;
+			}
+		} else if (d1.getLast() < 0 && d2.getLast() < 0) {
+			int tmp = d1.pollLast();
+			d1.addLast(-tmp);
+			tmp = d2.pollLast();
+			d2.addLast(-tmp);
+			int sum = 0;
+			while (!d1.isEmpty() || !d2.isEmpty()) {
+				if (!d1.isEmpty()) {
+					sum += d1.pollFirst();
+				}
+				if (!d2.isEmpty()) {
+					sum += d2.pollFirst();
+				}
+				if (sum > 9) {
+					result.add(sum % 10);
+					sum = 1;
+				} else {
+					result.add(sum);
+					sum = 0;
+				}
+			}
+			if (sum != 0)	result.add(sum);
+			if (result.isEmpty()) {
+				result.addLast(0);
+				return result;
+			}
+			int last = result.pollLast();
+			result.addLast(-last);
+			return result;
 		} else {
-			result = Math.abs(d.pollFirst());
-			int power = 1;
-			while (!d.isEmpty()) {
-				result += Math.abs(d.pollFirst()) * Math.pow(10, power);
-				power ++;
+			int sum = 0;
+			while (!d1.isEmpty() || !d2.isEmpty()) {
+				if (!d1.isEmpty()) {
+					sum += d1.pollFirst();
+				}
+				if (!d2.isEmpty()) {
+					sum += d2.pollFirst();
+				}
+				if (sum > 9) {
+					result.add(sum % 10);
+					sum = 1;
+				} else {
+					result.add(sum);
+					sum = 0;
+				}
 			}
-			result = -result;
+			if (sum != 0)	result.add(sum);
+			return result;
 		}
-		return result;
-	}
-
-	public Deque<Integer> IntToDeque (int number) {
-		Deque<Integer> result = new ArrayDeque<>();
-		if (number < 0) {
-			number = -number;
-			while (number != 0) {
-				result.addLast(number % 10);
-				number /= 10;
-			}
-			int tmp = result.pollLast();
-			result.addLast(-tmp);
-		} else {
-			while (number != 0) {
-				result.addLast(number % 10);
-				number /= 10;
-			}
-		}
-		return result;
 	}
 }
