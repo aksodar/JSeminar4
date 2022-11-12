@@ -32,26 +32,4 @@ class HomeworkTest {
 
 		Assertions.assertIterableEquals(expectedDeque, actualDeque);
 	}
-	
-	@Test
-	void DequeToIntSuccessful() {
-		Deque<Integer> inputDeque = new ArrayDeque<>(Arrays.asList(2, -1));
-
-		int expected = -12;
-
-		int actual = (new Homework()).DequeToInt(inputDeque);
-
-		Assertions.assertEquals(expected, actual);
-	}
-	
-	@Test
-	void IntToDequeSuccessful() {
-		int input = -203;
-
-		Deque<Integer> expectedDeque = new ArrayDeque<>(Arrays.asList(3, 0, -2));
-
-		Deque<Integer> actualDeque = (new Homework()).IntToDeque(input);
-
-		Assertions.assertIterableEquals(expectedDeque, actualDeque);
-	}
 }
