@@ -22,8 +22,8 @@ public class Homework {
 		Logger log = Logger.getLogger(Homework.class.getName());
 		Homework homework = new Homework();
 
-		log.info("Результат умножения: " + String.valueOf(homework.multiple(d1_1, d2_1)));
-		log.info("Результат сложения: " + String.valueOf(homework.sum(d1_2, d2_2)));
+		log.info("Результат умножения: " + homework.multiple(d1_1, d2_1));
+		log.info("Результат сложения: " + homework.sum(d1_2, d2_2));
 	}
 
 	// Умножьте два числа и верните произведение в виде связанного списка.
