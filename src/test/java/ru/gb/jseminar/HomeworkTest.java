@@ -24,7 +24,7 @@ class HomeworkTest {
     }
 
     @Test
-    void sum() {
+    void sumText() {
         Deque<Integer> expectedList1 = new ArrayDeque<>(Arrays.asList(5,-5));
         Deque<Integer>expectedList2 = new ArrayDeque<>(Arrays.asList(5,2));
         Deque<Integer>expected = new ArrayDeque<>(Arrays.asList(0,-3));
