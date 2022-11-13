@@ -77,7 +77,7 @@ public class Task2 {
         if(!parentheses3.isEmpty()){
             bool3=examination(parentheses3,"{","}");
         }
-        if(bool1&bool2&bool2){
+        if(bool1&bool2&bool3){
             return true;
         }else
         return false;
