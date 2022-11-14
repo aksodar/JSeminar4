@@ -3,6 +3,7 @@ package ru.gb.jseminar;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.logging.Logger;
 
 public class Task1 {
 
@@ -11,14 +12,36 @@ public class Task1 {
     // Сложите два числа и верните сумму в виде связанного списка.
     public static void main(String[] args) {
         Deque<Integer> d1 = new ArrayDeque<>(Arrays.asList(3,2,1));
-        Deque<Integer> d2 = new ArrayDeque<>(Arrays.asList(7,4,5));
-        // result [1,0,6,6]
-
+        Deque<Integer> d2 = new ArrayDeque<>(Arrays.asList(7,4,7));
+        // result [0, 7, 8] (сначала ошибочно было указано [1,0,6,6])
+        Task1 task1 = new Task1();
+        Logger log = Logger.getLogger(Task1.class.getName());
+        log.info(String.valueOf(task1.sum(d1, d2)));
     }
 
 
     public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2){
-
-        return new ArrayDeque<>();
+        ArrayDeque<Integer> result = new ArrayDeque<>();
+        int sum = 0;
+        while (!d1.isEmpty() || !d2.isEmpty()){
+            if (!d1.isEmpty()){
+                sum += d1.pollFirst();
+            }
+            if (!d2.isEmpty()){
+                sum += d2.pollFirst();
+            }
+            if (sum > 9){
+                result.add(sum % 10);
+                sum = 1;
+            }
+            else{
+                result.add(sum);
+                sum = 0;
+            }
+        }
+        if(sum != 0){
+            result.add(sum);
+        }
+        return result;
     }
 }
