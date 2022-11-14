@@ -15,6 +15,12 @@ public class Task0 {
 
 
     public boolean checkOn(Deque<Integer> deque){
+        if (deque != null && deque.size() > 0){
+            if (deque.size() == 1) return true;
+            if (deque.size() > 1){
+                if (!deque.pollFirst().equals(deque.pollLast())) return false;
+            }
+        }
 
         return false;
     }
