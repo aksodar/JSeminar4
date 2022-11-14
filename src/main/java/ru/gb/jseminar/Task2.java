@@ -1,6 +1,8 @@
 package ru.gb.jseminar;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class Task2 {
 
@@ -17,13 +19,14 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
+      
 
 
     }
 
 
-    public boolean validate(Deque<Integer> deque){
-
+    public boolean validate(Deque<Character> deque){
+     
         return false;
     }
 }
