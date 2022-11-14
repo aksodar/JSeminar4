@@ -1,6 +1,8 @@
 package ru.gb.jseminar;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class Task2 {
 
@@ -17,12 +19,28 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
+        // Task2 task2 = new Task2();
+        // String someString = "()[]";
+        // Deque<Character> dq = new LinkedList<>();
+        // for (int x = 0; x < someString.length(); x++) {
+        //     dq.add(someString.charAt(x));
+        // }
+        // System.out.println(task2.validate(dq));
+
 
 
     }
 
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(Deque<Character> deque){
+        // for (Character character : deque) {
+        //     if (character == '('){
+        //         for (Character character2 : deque) {
+        //             if 
+                    
+        //         }
+        //     }
+        // }
 
         return false;
     }
