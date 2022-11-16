@@ -59,7 +59,6 @@ public class Homework {
 
     // Сложите два числа и верните сумму в виде связанного списка. Одно или два числа должны быть отрицательными
     public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2){
-        
         return IntToDeque(DequeToInt(d1) + DequeToInt(d2));
     }
 }
