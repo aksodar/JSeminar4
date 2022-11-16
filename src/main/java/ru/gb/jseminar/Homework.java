@@ -1,5 +1,3 @@
-package ru.gb.jseminar;
-
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -39,8 +37,8 @@ public class Homework {
             if (count <= 0){
                 flag = false;
             }else{
-            sum_num.add(count % 10);
-            count /= 10;}
+                sum_num.add(count % 10);
+                count /= 10;}
         }
         return sum_num;
     }
