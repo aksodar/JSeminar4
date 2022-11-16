@@ -18,9 +18,7 @@ public class Task2 {
 
     public static void main(String[] args) {
 
-
     }
-
 
     public boolean validate(Deque<Integer> deque){
 
