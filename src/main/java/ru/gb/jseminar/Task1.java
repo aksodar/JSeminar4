@@ -1,8 +1,10 @@
-package ru.gb.jseminar;
 
+
+import java.util.logging.Logger;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+
 
 public class Task1 {
 
@@ -10,15 +12,46 @@ public class Task1 {
     // и каждый из их узлов содержит одну цифру.
     // Сложите два числа и верните сумму в виде связанного списка.
     public static void main(String[] args) {
-        Deque<Integer> d1 = new ArrayDeque<>(Arrays.asList(3,2,1));
-        Deque<Integer> d2 = new ArrayDeque<>(Arrays.asList(7,4,5));
+        Task1 task1 = new Task1();
+        Deque<Integer> d1 = new ArrayDeque<>(Arrays.asList(1,2,3));
+        Deque<Integer> d2 = new ArrayDeque<>(Arrays.asList(5,4,7));
+        Logger log = Logger.getLogger(Task1.class.getName());
+        log.info(String.valueOf(task1.sum(d1, d2)));
+        
+        
         // result [1,0,6,6]
 
     }
 
-
-    public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2){
-
-        return new ArrayDeque<>();
+    public ArrayDeque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2){
+        Integer tamp = 0;
+        ArrayDeque<Integer> number_new = new ArrayDeque<>();
+        boolean flag = true;
+        while(flag){
+            Integer tamp_one = d1.peek();
+            Integer tamp_two = d2.peek();
+            if (tamp_one == null && tamp_two == null){
+                flag = false;
+            }else if(tamp_one == null){;
+                Integer sum = tamp_two + tamp;
+                number_new.add(sum);
+                tamp = 0;
+            }
+            else if(tamp_two == null){
+                tamp_two = 0;
+                Integer sum = tamp_one + tamp;
+                number_new.add(sum);
+                tamp = 0;
+            }else{
+                Integer sum = tamp_one + tamp_two + tamp;
+                if(sum >= 10){
+                    number_new.add(sum % 10);
+                    tamp += 1;
+                }else{
+                    number_new.add(sum);
+                }
+            }
+        }
+        return number_new;
     }
 }
