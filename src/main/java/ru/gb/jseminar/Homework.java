@@ -61,4 +61,7 @@ public class Homework {
     public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2){
         return IntToDeque(DequeToInt(d1) + DequeToInt(d2));
     }
+
+    //TEST 
+    //https://github.com/Leon2kk/JSeminar_4-kushkhaunov-l-v/blob/master/src/test/java/ru/gb/jseminar/HomeworkTest.java
 }
