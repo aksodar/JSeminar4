@@ -1,6 +1,8 @@
 package ru.gb.jseminar;
 
-import java.util.Deque;
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
+import java.util.*;
 
 public class Task2 {
 
@@ -16,12 +18,48 @@ public class Task2 {
     // ()() = true
     // )()( = false
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        Task2 task2 = new Task2();
+        System.out.println(task2.validate("()[]"));
+        System.out.println(task2.validate("()"));
+        System.out.println(task2.validate("{[()]}"));
+        System.out.println(task2.validate("()()"));
+        System.out.println(task2.validate(")()("));
 
     }
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(String str) throws Exception {
+        if ( str.length() == 0 ){
+            throw new Exception("Введены неккоректные данные");
+        }
+        Map<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put('}', '{');
+        map.put(']', '[');
 
-        return false;
+        CharacterIterator it = new StringCharacterIterator(str);
+        Deque<Character> deque = new LinkedList<>();
+
+        while (it.current() != CharacterIterator.DONE)
+        {
+            char chCurrect = it.current();
+
+            if (!map.containsKey(chCurrect)){
+                deque.offerLast(chCurrect);
+                it.next();
+                continue;
+            }
+
+            if (deque.peekLast() == map.get(chCurrect))  {
+                deque.pollLast();
+            }
+            else {
+                deque.offerLast(chCurrect);
+            }
+            it.next();
+        }
+
+        return deque.size() == 0;
     }
 }
