@@ -1,6 +1,11 @@
 package ru.gb.jseminar;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Stack;
 
 public class Task2 {
 
@@ -17,11 +22,28 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
-
+        Task2 third = new Task2();
+        Deque<Character> sequence = new ArrayDeque<>(Arrays.asList('{','(','{','}',')','[',']','}'));
+        System.out.println(third.validate(sequence));
     }
 
-    public boolean validate(Deque<Integer> deque){
-
-        return false;
+  
+    public boolean validate(Deque<Character> deque){
+        Map<Character, Character> controlDict = new Hashtable<Character, Character>();
+        controlDict.put(']', '[');
+        controlDict.put(')', '(');
+        controlDict.put('}', '{');
+        Stack<Character> stack = new Stack<>();
+        char element;
+        while (deque.size() > 0){
+            element = deque.poll();
+            if (controlDict.containsValue(element))
+                stack.push(element);
+            else
+            if (controlDict.containsKey(element))
+                if (stack.size() == 0 || stack.pop() != controlDict.get(element)) return false;
+            
+        }
+        return stack.size() == 0;
     }
 }
