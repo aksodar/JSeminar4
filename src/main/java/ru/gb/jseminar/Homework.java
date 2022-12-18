@@ -8,7 +8,7 @@ public class Homework {
 
     //Даны два Deque представляющие два целых числа. Цифры хранятся в обратном порядке,
     // и каждый из их узлов содержит одну цифру.
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Homework hw = new Homework();
         hw.multiple(new ArrayDeque<>(Arrays.asList(5,2)), new ArrayDeque<>(Arrays.asList(4)));
         // result [0,0,1]
@@ -17,14 +17,42 @@ public class Homework {
     }
 
     // Умножьте два числа и верните произведение в виде связанного списка.
-    public Deque<Integer> multiple(Deque<Integer> d1, Deque<Integer> d2){
+    public Deque<Integer> multiple(Deque<Integer> d1, Deque<Integer> d2) throws Exception {
+        if (d1 == null || d2 == null) {
+            throw new Exception("No data");
+        }
+        ArrayDeque<Integer> result = new ArrayDeque<>();
+        StringBuilder num1 = new StringBuilder();
+        StringBuilder num2 = new StringBuilder();
 
-        return new ArrayDeque<>();
+        while (d1.size() > 0 || d2.size() > 0) {
+
+
+            if (d1.size() > 0) {
+                num1.append(d1.pollLast());
+            }
+            if (d2.size() > 0) {
+                num2.append(d2.pollLast());
+            }
+        }
+        String sum = Integer.toString(Integer.parseInt(num1.toString()) * Integer.parseInt(num2.toString()));
+//        char tempChar = 0;
+//        int tempInt = 0;
+        for(int i = sum.length()-1; i >= 0; i -=1) {
+            int tempInt = sum.charAt (i);
+            System.out.println(sum.charAt (i));
+            result.offer(tempInt);
+        }
+
+        System.out.println(result);
+        return result;
     }
 
     // Сложите два числа и верните сумму в виде связанного списка. Одно или два числа должны быть отрицательными
-    public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2){
-
+    public Deque<Integer> sum(Deque<Integer> d1, Deque<Integer> d2) throws Exception {
+        if (d1 == null || d2 == null) {
+            throw new Exception("No data");
+        }
         return new ArrayDeque<>();
     }
 }
