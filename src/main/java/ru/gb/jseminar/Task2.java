@@ -1,4 +1,4 @@
-package ru.gb.jseminar;
+package JSeminar_4.src.main.java.ru.gb.jseminar;
 
 import java.util.Deque;
 
