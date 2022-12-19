@@ -35,12 +35,11 @@ public class Homework {
                 num2.append(d2.pollLast());
             }
         }
-        String sum = Integer.toString(Integer.parseInt(num1.toString()) * Integer.parseInt(num2.toString()));
-//        char tempChar = 0;
-//        int tempInt = 0;
-        for(int i = sum.length()-1; i >= 0; i -=1) {
-            int tempInt = sum.charAt (i);
-            System.out.println(sum.charAt (i));
+        String multiple = Integer.toString(Integer.parseInt(num1.toString()) * Integer.parseInt(num2.toString()));
+
+        for(int i = multiple.length()-1; i >= 0; i -=1) {
+            int tempInt = Character.getNumericValue(multiple.charAt (i));
+
             result.offer(tempInt);
         }
 
@@ -53,6 +52,36 @@ public class Homework {
         if (d1 == null || d2 == null) {
             throw new Exception("No data");
         }
-        return new ArrayDeque<>();
+        ArrayDeque<Integer> result = new ArrayDeque<>();
+        StringBuilder num1 = new StringBuilder();
+        StringBuilder num2 = new StringBuilder();
+
+        while (d1.size() > 0 || d2.size() > 0) {
+
+
+            if (d1.size() > 0) {
+                num1.append(d1.pollLast());
+            }
+            if (d2.size() > 0) {
+                num2.append(d2.pollLast());
+            }
+        }
+
+        String sum = Integer.toString(Integer.parseInt(num1.toString()) + Integer.parseInt(num2.toString()));
+
+        for(int i = sum.length()-1; i >= 0; i -=1) {
+            int tempInt = Character.getNumericValue(sum.charAt (i));
+            if (tempInt < 0) {
+                int temp = result.pollLast();
+                result.offer(temp * -1);
+            }
+            else {
+                result.offer(tempInt);
+            }
+
+        }
+
+        System.out.println(result);
+        return result;
     }
 }
