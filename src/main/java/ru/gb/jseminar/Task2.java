@@ -1,6 +1,6 @@
 package ru.gb.jseminar;
 
-import java.util.Deque;
+import java.util.*;
 
 public class Task2 {
 
@@ -17,11 +17,36 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
-
+        Task2 qwert = new Task2();
+        String testStr = "()[][({}())]{{[]}}";
+        Deque<String> dano = new ArrayDeque<>(List.of(testStr.split("")));
+        System.out.println(qwert.validate(dano));
+        ;
     }
 
-    public boolean validate(Deque<Integer> deque){
-
-        return false;
+    public boolean validate(Deque<String> dano) {
+        if (dano.size() % 2 != 0) {
+            System.out.println("Error data");
+            return false;
+        }
+        Map<String, String> check = new HashMap<String, String>();
+        check.put("(", ")");
+        check.put("[", "]");
+        check.put("{", "}");
+        Deque<String> stack = new ArrayDeque<>();
+        while (dano.size() > 0) {
+            if (check.containsKey(dano.getFirst())) {
+                String temp = dano.removeFirst();
+                stack.addLast(temp);
+            } else {
+                if (check.get(stack.getLast()).equals(dano.removeFirst())) {
+                    stack.removeLast();
+                } else {
+                    System.out.println("Error data");
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
