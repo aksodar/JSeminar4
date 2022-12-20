@@ -1,6 +1,9 @@
 package ru.gb.jseminar;
 
 import java.util.Deque;
+import java.util.ArrayDeque;
+import java.util.*;
+import java.util.Map;
 
 public class Task2 {
 
@@ -18,10 +21,39 @@ public class Task2 {
 
     public static void main(String[] args) {
 
-    }
+        Task2 test = new Task2();
+//        String testStr = "()[{}][{}()]{{]}"; // false
+        String testStr = "()[{}][{}()]{[]}"; // true
+        Deque<String> testDeque = new ArrayDeque<>(List.of(testStr.split("")));
+        System.out.println(test.validate(testDeque));
+        }
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(Deque<String> testDeque) {
+        if (testDeque.size() % 2 != 0) {
 
-        return false;
+            return false;
+
+        }
+
+        Map<String, String> check = new HashMap<String, String>();
+        check.put("(", ")");
+        check.put("[", "]");
+        check.put("{", "}");
+
+        Deque<String> stack = new ArrayDeque<>();
+
+        while (testDeque.size() > 0) {
+            if (check.containsKey(testDeque.getFirst())) {
+                String temp = testDeque.removeFirst();
+                stack.addLast(temp);
+            } else {
+                if (check.get(stack.getLast()).equals(testDeque.removeFirst())) {
+                    stack.removeLast();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
