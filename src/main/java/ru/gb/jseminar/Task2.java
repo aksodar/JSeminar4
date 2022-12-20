@@ -1,6 +1,6 @@
 package ru.gb.jseminar;
 
-import java.util.Deque;
+import java.util.*;
 
 public class Task2 {
 
@@ -17,11 +17,28 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
-
+        Deque<Character> d1 = new ArrayDeque<Character>(Arrays.asList('(',  ')', '[' ,']'));
+        Task2 t2 = new Task2();
+        System.out.println(t2.validate(d1));
     }
 
-    public boolean validate(Deque<Integer> deque){
-
-        return false;
+    public boolean validate(Deque<Character> deque) {
+        Map<Character, Character> map = new HashMap<>();
+        map.put('}', '{');
+        map.put(']', '[');
+        map.put(')', '(');
+        Stack<Character> st = new Stack<>();
+        while (deque.size() > 0) {
+            char element = deque.poll();
+            if (map.containsValue(element))
+            {
+                st.push(element);
+            }
+             else if (map.containsKey(element))
+                if (st.size() == 0 || st.pop() != map.get(element)) {
+                    return false;
+                }
+            }
+            return st.size() == 0;
+        }
     }
-}
