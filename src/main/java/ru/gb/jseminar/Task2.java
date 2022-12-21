@@ -1,5 +1,6 @@
 package ru.gb.jseminar;
 
+import java.util.Arrays;
 import java.util.Deque;
 
 public class Task2 {
@@ -17,6 +18,7 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
+
 
     }
 
