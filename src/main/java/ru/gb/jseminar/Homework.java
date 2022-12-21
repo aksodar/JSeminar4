@@ -57,7 +57,7 @@ public class Homework {
             int sum = 0 + tab;
             tab = 0;
             if (d1.size()>0){
-                sum += d1.pollFirst();
+                sum = d1.pollFirst();
             }
             if (d2.size() > 0 ){
                 sum += d2.pollFirst();
