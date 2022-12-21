@@ -1,6 +1,6 @@
 package ru.gb.jseminar;
 
-import java.util.Deque;
+import java.util.*;
 
 public class Task2 {
 
@@ -17,11 +17,34 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
+        String symbols = "{[()]}}{";
+        Task2 fg = new Task2();
+        System.out.println(fg.validate(String.valueOf(symbols)));
 
     }
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(String symbols) {
 
-        return false;
+        Deque<String> result = new ArrayDeque<>(10);
+        Map<String, String> etalon = new HashMap<>();
+        etalon.put("(", ")");
+        etalon.put("[", "]");
+        etalon.put("{", "}");
+        for (String i : symbols.split("")) {
+            if (etalon.containsKey(i)) {
+                result.add(i);
+            }
+            else if (etalon.containsValue(i)) {
+                if (result.size() > 0) {
+                    result.pollLast();
+                }
+            }
+        }
+        if (result.size() == 0){
+            return true;
+        }
+        else return false;
+
+
     }
 }
