@@ -1,6 +1,9 @@
 package ru.gb.jseminar;
 
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class Task2 {
 
@@ -17,11 +20,26 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
-
+        String staples = ")()(";
+        Task2 t2 = new Task2();
+        System.out.println(t2.validate(staples));
     }
 
-    public boolean validate(Deque<Integer> deque){
-
-        return false;
+    public boolean validate(String staples) {
+        Map<Character, Character> check  = new HashMap<>();
+        check.put(')', '(');
+        check.put('}', '{');
+        check.put(']', '[');
+        Deque<Character> stack = new LinkedList<>();
+        for (char c : staples.toCharArray()) {
+            if (check.containsValue(c)) {
+                stack.push(c);
+            } else if (check.containsKey(c)) {
+                if (stack.isEmpty() || stack.pop() != check.get(c)) {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
     }
 }
