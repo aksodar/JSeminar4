@@ -11,7 +11,7 @@ public class Task1 {
     // Сложите два числа и верните сумму в виде связанного списка.
     public static void main(String[] args) throws Exception {
         Deque<Integer> d1 = new ArrayDeque<>(Arrays.asList(1,2,3));
-        Deque<Integer> d2 = new ArrayDeque<>(Arrays.asList(5,7,12,13));
+        Deque<Integer> d2 = new ArrayDeque<>(Arrays.asList(5,4,7));
         // result [6,6,0,1]
         Task1 dp = new Task1();
         System.out.println(dp.sum(d1,d2));
