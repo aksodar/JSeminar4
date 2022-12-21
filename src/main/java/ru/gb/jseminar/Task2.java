@@ -1,6 +1,6 @@
-package ru.gb.jseminar;
+package JSeminar_4.src.main.java.ru.gb.jseminar;
 
-import java.util.Deque;
+import java.util.*;
 
 public class Task2 {
 
@@ -16,12 +16,42 @@ public class Task2 {
     // ()() = true
     // )()( = false
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+        Task2 symbol = new Task2();
+        Deque<Character> d1 = new ArrayDeque<>(Arrays.asList('(', ')', '[', ']'));
+        Deque<Character> d2 = new ArrayDeque<>(Arrays.asList('(', ')'));
+        Deque<Character> d3 = new ArrayDeque<>(Arrays.asList('{', '[', '(', ')', ']', '}'));
+        Deque<Character> d4 = new ArrayDeque<>(Arrays.asList('(', ')', '(', ')'));
+        Deque<Character> d5 = new ArrayDeque<>(Arrays.asList(')', '(', ')', '('));
+        System.out.println("()[] = " + symbol.validate(d1));
+        System.out.println("() = " + symbol.validate(d2));
+        System.out.println("{[()]} = " + symbol.validate(d3));
+        System.out.println("()() = " + symbol.validate(d4));
+        System.out.println(")()( = " + symbol.validate(d5));
     }
 
-    public boolean validate(Deque<Integer> deque){
-
-        return false;
+    public boolean validate(Deque<Character> deque) throws Exception {
+        if (deque == null || deque.size() == 0) {
+            throw new Exception("коллекция пустая");
+        }
+        Map<Character, Character> dct = new Hashtable<Character, Character>();
+        dct.put(']', '[');
+        dct.put(')', '(');
+        dct.put('}', '{');
+        Stack<Character> stack = new Stack<Character>();
+        char symbol;
+        while (deque.size() > 0) {
+            symbol = deque.poll();
+            if (dct.containsValue(symbol)) {
+                stack.push(symbol);
+            } else {
+                if (dct.containsKey(symbol)) {
+                    if (stack.empty() || stack.pop() != dct.get(symbol)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return stack.empty();
     }
 }
