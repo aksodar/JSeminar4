@@ -1,6 +1,9 @@
 package ru.gb.jseminar;
 
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class Task2 {
 
@@ -17,11 +20,32 @@ public class Task2 {
     // )()( = false
 
     public static void main(String[] args) {
+        Task2 val = new Task2();
 
+        System.out.println(val.validate("()[]"));
+        System.out.println(val.validate("()"));
+        System.out.println(val.validate("{[()]}"));
+        System.out.println(val.validate("()()"));
+        System.out.println(val.validate(")()("));
+        System.out.println(val.validate(":)"));
     }
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(String deque){
+        Map<Character, Character> brackets = new HashMap<>();
+        brackets.put(')', '(');
+        brackets.put('}', '{');
+        brackets.put(']', '[');
 
-        return false;
+        Deque<Character> stack = new LinkedList<>();
+        for (char c : deque.toCharArray()) {
+            if (brackets.containsValue(c)) {
+                stack.push(c);
+            } else if (brackets.containsKey(c)) {
+                if (stack.isEmpty() || stack.pop() != brackets.get(c)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
