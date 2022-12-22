@@ -14,16 +14,11 @@ public class Homework {
     // и каждый из их узлов содержит одну цифру.
     public static void main(String[] args) throws Exception {
         Homework hw = new Homework();
-//        hw.multiple(new ArrayDeque<>(Arrays.asList(5, 2)), new ArrayDeque<>(Arrays.asList(4)));
+        hw.multiple(new ArrayDeque<>(Arrays.asList(5, 2)), new ArrayDeque<>(Arrays.asList(4)));
         // result [0,0,1]
         hw.sum(new ArrayDeque<>(Arrays.asList(5,-2)), new ArrayDeque<>(Arrays.asList(5)));
         // result [0,-2]
     }
-
-//    public Deque<Integer> checkCollection(Deque<Integer> d1, Deque<Integer> d2) throws Exception {
-//        if (d1 == null ||  d2 == null) {
-//            throw new Exception("Входные данные отсутсвуют!");
-//    }
 
     // Умножьте два числа и верните произведение в виде связанного списка.
     public Deque<Integer> multiple(Deque<Integer> d1, Deque<Integer> d2) throws Exception {
@@ -46,7 +41,7 @@ public class Homework {
         if (discharge != 0) {
             result.offer(discharge);
         }
-        System.out.println(result);
+        System.out.println("ОТВЕТ для функции 'multiple': " + result);
         return result;
     }
 
@@ -76,7 +71,7 @@ public class Homework {
             result.offer(discharge);
         }
 
-        System.out.println(result);
+        System.out.println("ОТВЕТ для функции 'sum': " + result);
         return result;
     }
 }
