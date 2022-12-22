@@ -43,3 +43,4 @@ public class Task2 {
         return stack.size() == 0;
     }
 }
+

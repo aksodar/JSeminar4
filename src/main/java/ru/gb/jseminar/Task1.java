@@ -45,3 +45,4 @@ public class Task1 {
         return new ArrayDeque<>(result);
     }
 }
+

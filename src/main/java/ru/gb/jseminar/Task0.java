@@ -27,3 +27,4 @@ public class Task0 {
         return true;
     }
 }
+
