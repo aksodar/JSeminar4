@@ -21,9 +21,9 @@ public class Task2 {
     // )()( = false
     public static void main(String[] args) {
 
-        Task2 third = new Task2();
-        Deque<Character> sequence = new ArrayDeque<>(Arrays.asList('{','(','{','}',')','[',')','}'));
-        System.out.println(third.validate(sequence));
+        Task2 comparisonOfBrackets = new Task2();
+        Deque<Character> sequence = new ArrayDeque<>(Arrays.asList('{','(','{','}',')','[',']','}'));
+        System.out.println(comparisonOfBrackets.validate(sequence));
     }
         public boolean validate(Deque<Character> deque){
             Map<Character, Character> verificationOfCorrec = new Hashtable<Character, Character>();

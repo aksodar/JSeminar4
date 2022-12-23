@@ -7,7 +7,6 @@ import java.util.Deque;
 import static java.lang.Math.abs;
 
 public class Homework {
-
     //Даны два Deque представляющие два целых числа. Цифры хранятся в обратном порядке,
     // и каждый из их узлов содержит одну цифру.
     public static void main(String[] args) {
@@ -21,15 +20,14 @@ public class Homework {
     }
     public static Integer dequeInInt(Deque<Integer> deque){
         int mult = 1;
-        int res  = 0;
+        int result  = 0;
         int minusRatio = 1;
         for (int item: deque) {
             if (item < 0){minusRatio = -1;}
-            res += mult * abs(item);
+            result += mult * abs(item);
             mult *= 10;
         }
-
-        return res * minusRatio;
+        return result * minusRatio;
     }
     public static Deque<Integer> intInDeque (Integer number){
         Deque<Integer> result = new ArrayDeque<>();
@@ -38,18 +36,15 @@ public class Homework {
             number *= -1;
             minusRatio = -1;
         }
-
         while (number > 0) {
             result.offerLast(number % 10);
             number = number / 10;
         }
-
         if (minusRatio == -1) {
             int a = result.pollLast();
             a *= minusRatio;
             result.offerLast(a);
         }
-
         return result;
     }
     // Умножьте два числа и верните произведение в виде связанного списка.
