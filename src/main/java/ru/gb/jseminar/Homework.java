@@ -1,7 +1,6 @@
 package ru.gb.jseminar;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Homework {
 
@@ -52,7 +51,6 @@ public class Homework {
             throw new Exception("Входные данные отсутствуют");
         }
         ArrayDeque<Integer> result = new ArrayDeque<>();
-        int temp = 0;
         while(d1.size() > 0 || d2.size() > 0) {
             int sum1 = 0;
             int sum2 = 0;
