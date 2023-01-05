@@ -64,13 +64,7 @@ public class Homework {
             }
             sum1 = sum1 * (-1);
             sumres = sum1 + sum2;
-            if (sumres <= -10) {
-                while (sumres / 10 != 0) {
-                    result.offer(sumres % 10);
-                    sumres /= 10;
-                }
-            }
-            if (sumres >= 10) {
+            if (sumres <= -10 || sumres >= 10) {
                 while (sumres / 10 != 0) {
                     result.offer(sumres % 10);
                     sumres /= 10;
