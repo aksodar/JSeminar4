@@ -1,5 +1,7 @@
 package ru.gb.jseminar;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 public class Task2 {
@@ -16,12 +18,48 @@ public class Task2 {
     // ()() = true
     // )()( = false
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        Deque<Character> examplList = new ArrayDeque<>(Arrays.asList('(', '{', '}', '(', ')', '[', ']', ')')); //'(', '{', '}', '(', ')', '[', ']', ')'
+        Task2 task2 = new Task2();
 
+        System.out.println(task2.validate(examplList));
     }
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(Deque<Character> deque) throws Exception{
+        if (deque.size() == 0){
+            throw new Exception("Пустая коллекция.");
+        }
 
-        return false;
+        while (deque.size() > 0){
+            if (deque.size() % 2 != 0) return false;
+            Character symbol = deque.pollFirst();
+
+            switch (symbol){
+                case '(':
+                    if (deque.peekLast() != ')'){
+                        if (deque.peekFirst() != ')') return false;
+                        else deque.pollFirst();
+                    }
+                    else deque.pollLast();
+                    break;
+
+                case '[':
+                if (deque.peekLast() != ']'){
+                    if (deque.peekFirst() != ']') return false;
+                    else deque.pollFirst();
+                }
+                else deque.pollLast();
+                    break;
+
+                case '{':
+                if (deque.peekLast() != '}'){
+                    if (deque.peekFirst() != '}') return false;
+                    else deque.pollFirst();
+                }
+                else deque.pollLast();
+                    break;
+            }
+        }
+        return true;
     }
 }
