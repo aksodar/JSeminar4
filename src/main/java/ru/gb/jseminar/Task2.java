@@ -1,5 +1,7 @@
 package ru.gb.jseminar;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 public class Task2 {
@@ -14,14 +16,45 @@ public class Task2 {
     // () = true
     // {[()]} = true
     // ()() = true
-    // )()( = false
+    // )()( = false   ({)}
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+    Task2 dq = new Task2();
+    Deque<String> list = new ArrayDeque<>(Arrays.asList("(",")","{","}","(",")"));
+        System.out.println(dq.validate(list));
+        System.out.println(dq.validate(new ArrayDeque<>(Arrays.asList("(",")","[","]"))));
+        System.out.println(dq.validate(new ArrayDeque<>(Arrays.asList("(",")"))));
+        System.out.println(dq.validate(new ArrayDeque<>(Arrays.asList("{","[","(",")","]","}"))));
+        System.out.println(dq.validate(new ArrayDeque<>(Arrays.asList("(",")","(",")"))));
+        System.out.println(dq.validate(new ArrayDeque<>(Arrays.asList(")","(",")","("))));
+        System.out.println(dq.validate(new ArrayDeque<>(Arrays.asList("(","{",")","}"))));
     }
 
-    public boolean validate(Deque<Integer> deque){
+    public boolean validate(Deque<String> deque) throws Exception {
+    if (deque == null){
+        throw new Exception("no data");
+    }
+    Deque<String> res = new ArrayDeque<>();
+    while (deque.size()>0){
+        String x = deque.pollFirst();
+        if (x == "(" || x== "[" || x=="{") {
+            res.offer(x);
+        }else {
+            String r = res.pollLast();
 
-        return false;
+            if (r != "{" && r != "(" && r != "["  ){
+                return false;
+            }
+            if (x != ")" && r == "(" ){
+                return false;
+            }
+            if (x != "}" && r == "{" ){
+                return false;
+            }if (x != "]" && r == "[" ){
+                return false;
+            }
+        }
+    }
+        return true;
     }
 }
